@@ -142,14 +142,18 @@
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="FileFactory.h" />
     <ClInclude Include="IFile.h" />
+    <ClInclude Include="FileError.h" />
+    <ClInclude Include="CsvFile.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="RNG.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinaryFile.cpp" />
+    <ClCompile Include="CsvFile.cpp" />
     <ClCompile Include="FileFactory.cpp" />
     <ClCompile Include="IFile.cpp" />
     <ClCompile Include="RNG.cpp" />
+    <ClCompile Include="Folder testowy.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

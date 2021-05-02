@@ -1,15 +1,15 @@
 /*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 5.9------------------------------
  ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-----------------------------*/
 
-#include "BinaryFile.h"
+#include "CsvFile.h"
 #include "FileError.h"
+#include <string>
 
-BinaryFile::BinaryFile(const std::string filePath, const std::string mode) : filePath(filePath), length(0)
+CsvFile::CsvFile(const std::string filePath, const std::string mode) : filePath(filePath), length(0)
 {
-	openMode = std::fstream::binary;
+	openMode = std::fstream::out;
 
 	if (mode.find("r") != std::string::npos) openMode |= std::fstream::in;
-	if (mode.find("w") != std::string::npos) openMode |= std::fstream::out;
 	if (mode.find("a") != std::string::npos) openMode |= std::fstream::app;
 	if (mode.find("t") != std::string::npos) openMode |= std::fstream::trunc;
 	if (mode.find("e") != std::string::npos) openMode |= std::fstream::ate;
@@ -22,12 +22,12 @@ BinaryFile::BinaryFile(const std::string filePath, const std::string mode) : fil
 	}
 }
 
-BinaryFile::~BinaryFile()
+CsvFile::~CsvFile()
 {
 	file.close();
 }
 
-FileError BinaryFile::Write(const std::vector<Point>& v)
+FileError CsvFile::Write(const std::vector<Point>& v)
 {
 	FileError retVal = FileError(ACCESS_DENIED);
 
@@ -37,14 +37,14 @@ FileError BinaryFile::Write(const std::vector<Point>& v)
 	}
 	else if (openMode & std::fstream::out)
 	{
-		file.write((const char *)v.data(), v.size() * sizeof(Point));
+		file.write((const char*)v.data(), v.size() * sizeof(Point));
 		retVal = FileError(SUCCESS);
 	}
 
 	return retVal;
 }
 
-FileError BinaryFile::Read(std::vector<Point>& v)
+FileError CsvFile::Read(std::vector<Point>& v)
 {
 	FileError retVal = FileError(ACCESS_DENIED);
 
@@ -57,14 +57,14 @@ FileError BinaryFile::Read(std::vector<Point>& v)
 		v.clear();
 		v.resize(length / sizeof(Point));
 		file.seekg(0, std::fstream::beg);
-		file.read((char *)v.data(), length);
+		file.read((char*)v.data(), length);
 		retVal = FileError(SUCCESS);
 	}
 
 	return retVal;
 }
 
-FileError BinaryFile::Read(Point & p, const unsigned long idx)
+FileError CsvFile::Read(Point& p, const unsigned long idx)
 {
 	FileError retVal = FileError(ACCESS_DENIED);
 

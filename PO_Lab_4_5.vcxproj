@@ -153,7 +153,7 @@
     <ClCompile Include="FileFactory.cpp" />
     <ClCompile Include="IFile.cpp" />
     <ClCompile Include="RNG.cpp" />
-    <ClCompile Include="Folder testowy.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

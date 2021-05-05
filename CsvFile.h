@@ -23,5 +23,6 @@ public:
 	FileError Write(const std::vector<Point>&);   // Zapis wektora punktów do pliku
 	FileError Read(std::vector<Point>&);          // Odczyt do wektora punktów z pliku
 	FileError Read(Point&, const unsigned long);  // Odczyt do struktury point punktów z pliku
+	vector<string> Split(string, char);
 };
 

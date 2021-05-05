@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -49,8 +50,8 @@ int main()
 		dane.push_back(Point(1,2,32));
 		dane.push_back(Point(1,2,33));
 		dane.push_back(Point(1,2,34));
-		CsvFile::CsvFile Plik;
-		Plik = CsvFile::CsvFile("test2.csv", "w");
+		//CsvFile Plik = CsvFile("test2.csv", "w");
+		CsvFile Plik("test2.csv", "w");
 		Plik.Write(dane);
 
 	//}

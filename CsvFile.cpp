@@ -4,6 +4,7 @@
 #include "CsvFile.h"
 #include "FileError.h"
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -71,12 +72,39 @@ FileError CsvFile::Read(std::vector<Point>& v)
 	{
 		v.clear();
 		v.resize(length / sizeof(Point));
-		file.seekg(0, std::fstream::beg);
-		file.read((char*)v.data(), length);
+
+		vector<string> TempString;
+		string Tekst;
+		Point TempPoint;
+		
+
+		while(getline(file, Tekst))
+		{
+			TempString = Split(Tekst, ',');
+			TempPoint.x = stod(TempString[0], nullptr);
+			TempPoint.y = stod(TempString[1], nullptr);
+			TempPoint.z = stod(TempString[2], nullptr);
+			v.push_back(TempPoint);
+		}
+
 		retVal = FileError(SUCCESS);
 	}
 
 	return retVal;
+}
+
+vector<string> CsvFile::Split(string str, char delim) 
+{ 
+	vector<string> result; 
+	stringstream ss(str); 
+	string item; 
+	
+	while (getline(ss, item, delim)) 
+	{ 
+		result.push_back(item); 
+	} 
+	
+	return result; 
 }
 
 FileError CsvFile::Read(Point& p, const unsigned long idx)
@@ -87,14 +115,27 @@ FileError CsvFile::Read(Point& p, const unsigned long idx)
 	{
 		retVal = FileError(FILE_INVALID);
 	}
-	else if (idx * sizeof(Point) > length)
-	{
-		retVal = FileError(OUT_OF_BOUNDS);
-	}
 	else if (openMode & std::fstream::in)
 	{
-		file.seekg(idx * sizeof(Point));
-		file.read((char*)(&p), sizeof(Point));
+
+		vector<string> TempString;
+		string Tekst;
+		Point TempPoint;
+		long Licznik = 0;
+
+		while(getline(file, Tekst))
+		{
+			if(Licznik == idx)
+			{
+				TempString = Split(Tekst, ',');
+				TempPoint.x = stod(TempString[0], nullptr);
+				TempPoint.y = stod(TempString[1], nullptr);
+				TempPoint.z = stod(TempString[2], nullptr);
+				p = TempPoint;
+			}
+			Licznik++;
+		}
+		
 		retVal = FileError(SUCCESS);
 	}
 

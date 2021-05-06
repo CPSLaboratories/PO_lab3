@@ -6,7 +6,9 @@
 #include <vector>
 #include "Point.h"
 #include "FileError.h"
-class BinaryFile
+#include "IFile.h"
+
+class BinaryFile : public IFile
 {
 private:
 
@@ -17,7 +19,8 @@ private:
 
 public:
 
-	BinaryFile(const std::string, const std::string);   // Konstruktor klasy 
+	BinaryFile(const std::string filePath, const std::string mode) : IFile(filePath, mode) {};
+	// Konstruktor klasy 
 	~BinaryFile();                                      // Destruktor klasy
 
 	FileError Write(const std::vector<Point>&);   // Zapis wektora punktów do pliku

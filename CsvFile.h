@@ -4,9 +4,14 @@
 #pragma once 
 #include <fstream> 
 #include <vector>
+#include <string>
 #include "Point.h"
 #include "FileError.h"
-class CsvFile
+#include "IFile.h"
+
+using namespace std;
+
+class CsvFile : public IFile
 {
 private:
 
@@ -17,12 +22,12 @@ private:
 
 public:
 
-	CsvFile(const std::string, const std::string);   // Konstruktor klasy 
+	CsvFile(const std::string a, const std::string b) : IFile(a, b) {};   // Konstruktor klasy 
 	~CsvFile();                                      // Destruktor klasy
 
 	FileError Write(const std::vector<Point>&);   // Zapis wektora punktów do pliku
 	FileError Read(std::vector<Point>&);          // Odczyt do wektora punktów z pliku
+	vector<string> Split(string str, char delim);
 	FileError Read(Point&, const unsigned long);  // Odczyt do struktury point punktów z pliku
-	vector<string> Split(string, char);
 };
 

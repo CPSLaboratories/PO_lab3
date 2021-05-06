@@ -5,6 +5,7 @@
 #include "FileError.h"
 #include <string>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -80,7 +81,7 @@ FileError CsvFile::Read(std::vector<Point>& v)
 
 		while(getline(file, Tekst))
 		{
-			TempString = Split(Tekst, ',');
+			TempString = CsvFile::Split(Tekst, ',');
 			TempPoint.x = stod(TempString[0], nullptr);
 			TempPoint.y = stod(TempString[1], nullptr);
 			TempPoint.z = stod(TempString[2], nullptr);
